@@ -14,7 +14,7 @@
       "latitude": 37.33182
     }
   ],
-  "passTypeIdentifier": "com.sdkqa.passtest",
+  "passTypeIdentifier": "pass.com.jacm.pasedeprueba",
   "webServiceURL": "http://propane.apple.com:4567/",
   "formatVersion": 1,
   "relevantDate": "2011-12-08T13:00-08:00",

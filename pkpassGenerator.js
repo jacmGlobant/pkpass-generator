@@ -1,3 +1,11 @@
+/** 
+ *  pass identifier: pass.com.jacm.pasedeprueba
+ *  system call to zip utility for compresion: zip -r => for zip
+ *  hasha library to create the manifest.json (sha1 hexadecimal)
+ *  For sign in: openssl smime -binary -sign -certfile ${config.appleWWDRCACertificatePath} -signer ${config.passCertificatePath} -inkey ${config.passCertificateKeyPath} -in ${tempPassFolder}/manifest.json -out ${tempPassFolder}/signature -outform DER -passin pass:${config.certificatePassword}
+ *  PassSigner => password: Test@123
+*/
+
 const hasha = require('hasha');
 
 const _createTemporaryDirectory = async () => {
@@ -34,6 +42,4 @@ const signPass = async () => {
    console.log('signPass called !');
 }
 
-(async () => {
-   await signPass();
-})()
+module.exports = signPass;
