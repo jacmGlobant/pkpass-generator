@@ -32,7 +32,7 @@ const _createTemporaryDirectory = async () => {
 
 const _copyPassToTemporaryLocation = async () => {
    try {
-      fse.copySync(SAMPLE_PASS, OUTPUT_PASS, { overwrite: true })
+      await fse.copy(SAMPLE_PASS, OUTPUT_PASS, { overwrite: true });
    } catch (error) {
       // log system here
    }
@@ -48,7 +48,6 @@ const _cleanDSStoreFiles = async () => {
    }
 }
 
-
 const _buildPassFormat = async () => {
    const passFormat = {
       passTypeIdentifier: 'pass.com.jacm.pasedeprueba',
@@ -60,11 +59,22 @@ const _buildPassFormat = async () => {
       description: 'Boarding pass',
    }
    // write in the output folder;
+   return passFormat;
 }
 
 const _generateJSONManifest = async () => {
-   console.log('> _generateJSONManifest called');
-}
+   try {
+      const passData = await _buildPassFormat();
+
+      const jsonContent = JSON.stringify(passData, null, 3); // Pretty print with 3 spaces indentation
+
+      const manifestFilePath = `${OUTPUT_PASS}/manifest.json`;
+      fs.writeFileSync(manifestFilePath, jsonContent);
+
+   } catch (e) {
+      console.error("Error generating JSON manifest:", e);
+  }
+};
 
 const _signJSONManifest = async () => {
    console.log('> _signJSONManifest called');
