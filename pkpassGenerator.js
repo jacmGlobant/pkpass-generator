@@ -9,6 +9,12 @@ const fs = require('fs');
 const fse = require('fs-extra');
 const hasha = require('hasha');
 const { exec } = require('child_process');
+const util = require('util');
+const path = require('path');
+
+const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
+const readdir = util.promisify(fs.readdir);
 
 const ROOT_PATH = './';
 const SAMPLE_PASS = './passes/sample';
@@ -56,7 +62,7 @@ const _buildPassFormat = async () => {
       relevantDate: '2011-12-08T13:00-08:00',
       teamIdentifier: 'SDKQATEAM1',
       authenticationToken: '30c4cb4ba863fa9d7687959d8fbc6f0c',
-      description: 'Boarding pass',
+      description: 'Boarding pass with sha 1',
    }
    // write in the output folder;
    return passFormat;
@@ -66,14 +72,29 @@ const _generateJSONManifest = async () => {
    try {
       const passData = await _buildPassFormat();
 
-      const jsonContent = JSON.stringify(passData, null, 3); // Pretty print with 3 spaces indentation
+      const files = await readdir(OUTPUT_PASS);
 
-      const manifestFilePath = `${OUTPUT_PASS}/manifest.json`;
-      fs.writeFileSync(manifestFilePath, jsonContent);
+      const manifest = {};
+
+      manifest.passData = passData;
+
+      for (const file of files) {
+         const filePath = path.join(OUTPUT_PASS, file);
+         const fileBuffer = await readFile(filePath);
+         const hash = await hasha(fileBuffer, {algorithm: 'sha1'});
+         manifest[file] = hash;
+      }
+
+      const jsonContent = JSON.stringify(manifest, null, 3); // Pretty print with 3 spaces indentation
+
+      const manifestFilePath = path.join(OUTPUT_PASS, 'manifest.json');
+      await writeFile(manifestFilePath, jsonContent);
+
+      console.log("Manifest JSON created");
 
    } catch (e) {
       console.error("Error generating JSON manifest:", e);
-  }
+   }
 };
 
 const _signJSONManifest = async () => {
