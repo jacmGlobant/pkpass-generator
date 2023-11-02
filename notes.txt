@@ -1,8 +1,14 @@
-openssl pkcs12 -export -out signerPass.p12 -inkey privateKey.key -in pass.cer
+https://github.com/alexandercerutti/passkit-generator/wiki/Generating-Certificates
 
-openssl smime -binary -sign -certfile /Users/juan.canepa/projects/SHRSS/pkpass-generator/certificates/WWDRG4.pem \
-   -signer /Users/juan.canepa/projects/SHRSS/pkpass-generator/certificates/signerPass.p12 \
-   -inkey /Users/juan.canepa/projects/SHRSS/pkpass-generator/certificates/privateKey.pem \
-   -in /Users/juan.canepa/projects/SHRSS/pkpass-generator/output/manifest.json \
-   -out /Users/juan.canepa/projects/SHRSS/pkpass-generator/output/signature \
-   -outform DER -passin pass:Test@123
+# get information form certificate (.cer)
+openssl x509 -inform DER -in pass.cer -noout -text
+
+# extract pem
+$ openssl pkcs12 -in pass.p12 -clcerts -nokeys -out signerCert.pem -passin pass:12345 -info -legacy
+
+# extract private key
+$ openssl pkcs12 -in pass.p12 -nocerts -out signerKey.pem -passin pass:12345 -passout pass:12345 -info -legacy
+
+# verify signature
+$ cd output/pass
+$ openssl smime -verify -in signature -content manifest.json -inform der -noverify

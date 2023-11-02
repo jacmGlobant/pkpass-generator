@@ -1,6 +1,6 @@
 {
   "formatVersion" : 1,
-  "passTypeIdentifier" : "pass.com.jacm.test",
+  "passTypeIdentifier" : "pass.com.jacm.sample",
   "serialNumber" : "8j23fm3",
   "webServiceURL" : "https://example.com/passes/",
   "authenticationToken" : "vxwxd7J8AlNNFPS8k0a0FfUFtq0ewzFdc",

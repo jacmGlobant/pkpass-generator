@@ -17,8 +17,8 @@ const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const readdir = util.promisify(fs.readdir);
 
-const SAMPLE_PASS_DIR = './passes/sample';
-const OUTPUT_PASS_DIR = './output/pass';
+const SAMPLE_PASS_DIR = path.resolve('passes/sample');
+const OUTPUT_PASS_DIR = path.resolve('output/pass');
 
 const DS_STORE_FILE = path.resolve('output/.DS_Store');
 const SIGNATURE_FILE = path.resolve('output/signature') 
@@ -29,11 +29,10 @@ const _createTemporaryDirectory = () => {
       if (fs.existsSync(OUTPUT_PASS_DIR)) {
          fs.rmSync(OUTPUT_PASS_DIR, { recursive: true, force: true });
       } 
+      fs.mkdirSync(OUTPUT_PASS_DIR);
    } catch (error) {
       // log system here
-   } finally {
-      fs.mkdirSync(OUTPUT_PASS_DIR);
-   }
+   } 
 }
 
 const _copyPassToTemporaryLocation = () => {
@@ -94,14 +93,13 @@ const _generateJSONManifest = async () => {
    }
 };
 
-
 const config = {
    appleWWDRCACertificatePath: path.resolve('certificates/WWDRG4.pem'),
-   passCertificatePath: path.resolve('certificates/signerPass.p12'),
-   passCertificateKeyPath: path.resolve('certificates/privateKey.pem'),
+   passCertificatePath: path.resolve('certificates/signerCert.pem'),
+   passCertificateKeyPath: path.resolve('certificates/signerKey.pem'),
    manifestFilePath: path.resolve('output/pass/manifest.json'),
    signatureFilePath: path.resolve('output/pass/signature'),
-   certificatePassword: 'Test@123'
+   certificatePassword: '12345'
 };
 
 const _signJSONManifest = async () => {
@@ -135,7 +133,7 @@ const execPromise = (command) => {
 
 const _compressPassFile = async () => {
    process.chdir('output');
-   const CMD = `zip -r pass.zip pass && mv pass.zip pass.pkpass`;
+   const CMD = `zip -r pass.pkpass pass`;
    exec(CMD, (err, stdout, _) => {
       if (err) {
         console.log('Ups, something was wrong!')
@@ -143,7 +141,7 @@ const _compressPassFile = async () => {
       console.log(stdout);
    });
    console.log('> _compressPassFile called');
-} 
+}
 
 const signPass = async () => {
    await _createTemporaryDirectory();
