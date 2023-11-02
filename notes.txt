@@ -1,0 +1,8 @@
+openssl pkcs12 -export -out signerPass.p12 -inkey privateKey.key -in pass.cer
+
+openssl smime -binary -sign -certfile /Users/juan.canepa/projects/SHRSS/pkpass-generator/certificates/WWDRG4.pem \
+   -signer /Users/juan.canepa/projects/SHRSS/pkpass-generator/certificates/signerPass.p12 \
+   -inkey /Users/juan.canepa/projects/SHRSS/pkpass-generator/certificates/privateKey.pem \
+   -in /Users/juan.canepa/projects/SHRSS/pkpass-generator/output/manifest.json \
+   -out /Users/juan.canepa/projects/SHRSS/pkpass-generator/output/signature \
+   -outform DER -passin pass:Test@123
