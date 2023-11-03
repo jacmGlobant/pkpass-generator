@@ -5,6 +5,16 @@
   "webServiceURL" : "https://example.com/passes/",
   "authenticationToken" : "vxwxd7J8AlNNFPS8k0a0FfUFtq0ewzFdc",
   "teamIdentifier" : "TLF2DB634G",
+  "locations" : [
+    {
+      "longitude" : -122.3748889,
+      "latitude" : 37.6189722
+    },
+    {
+      "longitude" : -122.03118,
+      "latitude" : 37.33182
+    }
+  ],
   "barcode" : {
     "message" : "123456789",
     "format" : "PKBarcodeFormatPDF417",
