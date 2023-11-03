@@ -12,3 +12,6 @@ Project to create a pass file formatted for apple-wallet
 
 
 ## How debug a pass with simulator (Juan)
+
+
+## Python Code (Juan)

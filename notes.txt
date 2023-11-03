@@ -15,6 +15,9 @@ $ openssl pkcs12 -in pass.p12 -nocerts -out signerKey.pem -passin pass:12345 -pa
 $ cd output/pass
 $ openssl smime -verify -in signature -content manifest.json -inform der -noverify
 
+$ node test.js => pkpassGenerator   (our code)
+$ node pkpassGenerator2             (library pkpass-generator)
+
 Failed to add pass: 'xxxx/pass.pkpass' Error Domain=PKPassKitErrorDomain Code=1 "No se puede leer el pase porque no es válido." UserInfo={NSLocalizedDescription=No se puede leer el pase porque no es válido., NSUnderlyingError=0x60000222e580 {Error Domain=PKPassKitErrorDomain Code=1 "(null)"}}.
 Error fetching bundle record for scheme approval: Error Domain=NSOSStatusErrorDomain Code=-10814 "(null)" UserInfo={_LSLine=1538, _LSFunction=runEvaluator}
 Unable to load object dictionary: Error Domain=PKPassKitErrorDomain Code=1 "Failed to read data" UserInfo={NSLocalizedDescription=Failed to read data, NSUnderlyingError=0x60000222f960 {Error Domain=NSCocoaErrorDomain Code=260 "El archivo “pass.json” no pudo abrirse porque no se encuentra." UserInfo={NSFilePath=/Users/juan.canepa/Library/Developer/CoreSimulator/Devices/1206C7EA-CCA6-4FDB-8D79-A17DD7DBBE2D/data/Containers/Data/Application/9CE602D7-A16F-4A7D-856C-204BF56D5657/tmp/com.apple.Passbook/114ECED7-34D0-4330-9E17-CD21F5D7EC5C.pkpass/pass.json, NSUnderlyingError=0x60000222d710 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}}}
