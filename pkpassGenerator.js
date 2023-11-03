@@ -17,7 +17,7 @@ const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const readdir = util.promisify(fs.readdir);
 
-const SAMPLE_PASS_DIR = path.resolve('passes/sample');
+const SAMPLE_PASS_DIR = path.resolve('passes/sample.pass');
 const OUTPUT_PASS_DIR = path.resolve('output/pass');
 
 const DS_STORE_FILE = path.resolve('output/.DS_Store');

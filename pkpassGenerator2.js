@@ -19,5 +19,5 @@ try {
          fs.writeFileSync('output/pass.pkpass', buffer);
    })();
 } catch (err) {
-	doSomethingWithTheError(err);
+	console.log(err);
 }

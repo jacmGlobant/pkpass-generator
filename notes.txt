@@ -1,9 +1,11 @@
 https://github.com/alexandercerutti/passkit-generator/wiki/Generating-Certificates
 
+if the version of openssl is greater that > 3 is necessary add the flags "-info -legacy"
+
 # get information form certificate (.cer)
 openssl x509 -inform DER -in pass.cer -noout -text
 
-# extract pem
+# extract pem certificate signer 
 $ openssl pkcs12 -in pass.p12 -clcerts -nokeys -out signerCert.pem -passin pass:12345 -info -legacy
 
 # extract private key
