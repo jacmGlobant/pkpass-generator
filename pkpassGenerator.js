@@ -12,6 +12,7 @@ const fse = require('fs-extra');
 const hasha = require('hasha');
 const { exec } = require('child_process');
 const util = require('util');
+const archiver = require('archiver');
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
@@ -132,16 +133,29 @@ const execPromise = (command) => {
 };
 
 const _compressPassFile = async () => {
-   process.chdir('output');
-   const CMD = `zip -r pass.pkpass pass`;
-   exec(CMD, (err, stdout, _) => {
-      if (err) {
-        console.log('Ups, something was wrong!')
-      }
-      console.log(stdout);
+
+   const outputFile = path.resolve('output', 'pass.pkpass');
+
+   //Create an output file stream
+   const output = fs.createWriteStream(outputFile);
+   
+   const archive = archiver('zip', {
+     zlib: { level: 9 } // level of compression
    });
-   console.log('> _compressPassFile called');
-}
+
+   archive.on('error', (err) => {
+      console.log('Ops, something was wrong!', err);
+   });
+
+   archive.pipe(output);
+
+   // Add 'pass' to the zip file
+   archive.directory((OUTPUT_PASS_DIR), false);
+
+   archive.finalize();
+
+   console.log('Archivo ZIP creado exitosamente.');
+};
 
 const signPass = async () => {
    await _createTemporaryDirectory();
