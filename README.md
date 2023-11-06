@@ -109,8 +109,41 @@ and the other parameters: serialNuber, and the barcode definition
 
 ## How debug a pass with simulator (Juan)
 
+To debugg a pass with a simulator, we need to consider the next steps:
 
-## Python Code (Juan)
+1. **Ensure Proper Environment:**
+   - Install the latest version of Xcode on your Mac, which comes with the iOS somulator.
+   - Make sure you have the latest operating system version on your simulator to avoid compatibility issues.
+2. **Verify the pkpass File:**
+   - Ensure the pkpass file is correctly signed and that all required images and fields are present and valid. You can use OpenSSL to verify the signature of a pkpass file.
+3. **Check console logs:**
+   - If there are issues adding the pass, you'll need to check the simulator's console logs for more information on the errors.
+   - Open the "Console" app on your Mac and select the simulator you're working with to view its logs.
+4. **Check common aspects:**
+   - Ensure the pass has a valid organization identifier and a valid development team.
+   - Ensure the expiration date (if present) is correct.
+   - Verify that the certificate information and manifest match and are valid.
+   - Check for typos or formatting issues in the pkpass file's JSON.
+   - For more information, you can visit https://developer.apple.com/documentation/walletpasses/building_a_pass
 
+## Python Code
+
+1. **Load supporting files, hash 'em and build up manifest** 
+   The code reads files from a list, decodes them to text, computes and stores their SHA-1 hashes encoded in UTF-16, and builds a text-format manifest with the filenames and their hashes.
+
+2. **Write the manifest to manifest.json**
+   The function opens a file named 'manifest.json' in write mode, writes the content of the manifest variable into it, and then closes the file.
+
+3. **Digital Signature Creation with OpenSSL**
+   The function builds and executes an OpenSSL command to digitally sign manifest.json using specified certificate and key files, then saves the signature in DER format, with the password provided for key access.
+
+4. **Add manifest and signature to the list of files**
+   The function reads the binary content of 'manifest.json' and 'signature', attempts to decode it to text, stores it, and computes their SHA-1 hashes in UTF-8 encoding.
+
+5. **Put all files in a zip file**
+   The function creates an in-memory ZIP archive and adds files to it using their names and contents from file_data.
+
+6. **Write the zip file to pass.pkpass**
+   The function writes the in-memory ZIP archive data to a file named 'pass.pkpass', effectively creating or updating it on the disk.
 
 ## PkPass implementationin JAVA
