@@ -1,5 +1,19 @@
 # pkpass-generator
-Project to create a pass file formatted for apple-wallet
+Project to create a formatted pass file for apple-wallet
+
+The purpose of this repository is to describe the steps necessary to create the pkpass file
+file as it is essential to implement apple-wallet.
+
+The first step is to obtain the certificates to be able to sign the pass, the pass is how
+Apple sees any digital document on the apple-wallet
+
+1. [Process to create the certificates](#process-to-create-certificates)
+2. [Flow to create the pkpass (custom implementation)](#flow-to-create-pkpass)
+2. [Custom library with flow specification](#pkpass-generator)
+3. [Use of NodeJS community library (passkit-generator)](#flow-to-create-pkpass-with-passkit-generator)
+4. [Python implementation (is old code but the foundation to create the pkpass)](#python-code)
+5. [Alternatives with Java language](#pkpass-implementationin-java)
+
 
 ## Process to create certificates
 
@@ -32,7 +46,7 @@ $ cd output/pass
 $ openssl smime -verify -in signature -content manifest.json -inform der -noverify
 ```
 
-## Flow to create pkpass (manual)
+## Flow to create pkpass (see the source code pkpassGenerator.js)
 
 The process to be followed to generate a pkpass is as follows:
 
@@ -55,7 +69,7 @@ The process to be followed to generate a pkpass is as follows:
    A function is created to compress a set of files into a .pkpass file using the zip command. 
 
 
-## Flow to create pkpass with passkit-generator
+## Flow to create pkpass with passkit-generator (see the source code pkpassGenerator2.js)
 
 Alexander Cerutti has developed a library that offers a user-friendly approach, simplifying the entire process of generating the pkpass file. The advantage of this library lies in its minimal lines of code required for implementation. However, a limitation is that it relies entirely on NodeJS
 
@@ -107,7 +121,7 @@ The pass structure should be define in the folder '/passes/sample' like is in th
 and the other parameters: serialNuber, and the barcode definition
 
 
-## How debug a pass with simulator (Juan)
+## How debug a pass with simulator
 
 To debugg a pass with a simulator, we need to consider the next steps:
 
@@ -146,4 +160,4 @@ To debugg a pass with a simulator, we need to consider the next steps:
 6. **Write the zip file to pass.pkpass**
    The function writes the in-memory ZIP archive data to a file named 'pass.pkpass', effectively creating or updating it on the disk.
 
-## PkPass implementationin JAVA
+## PkPass implementation in JAVA

@@ -1,11 +1,3 @@
-/** 
- *  pass identifier: pass.com.jacm.pasedeprueba
- *  system call to zip utility for compresion: zip -r => for zip
- *  hasha library to create the manifest.json (sha1 hexadecimal)
- *  For sign in: openssl smime -binary -sign -certfile ${config.appleWWDRCACertificatePath} -signer ${config.passCertificatePath} -inkey ${config.passCertificateKeyPath} -in ${tempPassFolder}/manifest.json -out ${tempPassFolder}/signature -outform DER -passin pass:${config.certificatePassword}
- *  PassSigner => password: Test@123
-*/
-
 const path = require('path');
 const fs = require('fs');
 const fse = require('fs-extra');
@@ -21,9 +13,20 @@ const readdir = util.promisify(fs.readdir);
 const SAMPLE_PASS_DIR = path.resolve('passes/sample.pass');
 const OUTPUT_PASS_DIR = path.resolve('output/pass');
 
-const DS_STORE_FILE = path.resolve('output/.DS_Store');
+// main files
+const DS_STORE_FILE = path.resolve('output/.DS_Store');      // files created by macosx these should be cleaned
 const SIGNATURE_FILE = path.resolve('output/signature') 
 const MANIFEST_FILE = path.resolve('output/manifest.json');
+
+
+const config = {
+   appleWWDRCACertificatePath: path.resolve('certificates/WWDRG4.pem'),   // Apple authority certificate (it should be extract from the .cer see README.md)
+   passCertificatePath: path.resolve('certificates/signerCert.pem'),      // Certificate to sign
+   passCertificateKeyPath: path.resolve('certificates/signerKey.pem'),    // Private key from the certificate (it should be extract from p12 with SSL see README.md)
+   manifestFilePath: path.resolve('output/pass/manifest.json'),           // The path of the manifest, that represent the list of each file with the content as sha1
+   signatureFilePath: path.resolve('output/pass/signature'),              // The signing of the pass path
+   certificatePassword: '12345'
+};
 
 const _createTemporaryDirectory = () => {
    try {
@@ -53,6 +56,9 @@ const _cleanDSStoreFiles = () => {
       
    }
 }
+
+// is supposed that this method should be create the pass.json 
+// with the user data and the design of the loyalty card
 
 const _buildPassFormat = () => {
    const passFormat = {
@@ -92,15 +98,6 @@ const _generateJSONManifest = async () => {
    } catch (e) {
       console.error('Error generating JSON manifest:', e);
    }
-};
-
-const config = {
-   appleWWDRCACertificatePath: path.resolve('certificates/WWDRG4.pem'),
-   passCertificatePath: path.resolve('certificates/signerCert.pem'),
-   passCertificateKeyPath: path.resolve('certificates/signerKey.pem'),
-   manifestFilePath: path.resolve('output/pass/manifest.json'),
-   signatureFilePath: path.resolve('output/pass/signature'),
-   certificatePassword: '12345'
 };
 
 const _signJSONManifest = async () => {
@@ -154,14 +151,20 @@ const _compressPassFile = async () => {
 
    archive.finalize();
 
-   console.log('Archivo ZIP creado exitosamente.');
+   console.log('File pkpass created succesfully!');
 };
 
 const signPass = async () => {
    await _createTemporaryDirectory();
    await _copyPassToTemporaryLocation();
    await _cleanDSStoreFiles();
+
+   // This method should be update the pass with 
+   // the custom design and the the user data of 
+   // the loyalty card
+   
    // await _buildPassFormat();
+
    await _generateJSONManifest();
    await _signJSONManifest();
    await _compressPassFile();
