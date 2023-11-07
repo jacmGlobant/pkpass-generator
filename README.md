@@ -180,4 +180,4 @@ With java there are two implementation in the internet:
 1. [Create Rest API to download Apple wallet (.pkpass) file using Spring, Java](https://mumzee.medium.com/create-rest-api-to-download-apple-wallet-pkpass-file-using-spring-java-bd66e4eb8f3e)
 2. [(Java) Sign Manifest File to Generate a Passbook .pkpass file](https://example-code.com/java/passbook_signature_pkpass.asp)
 
-As you can see in basically the same steps that the other methods and we need follow the Apple specification
+As you can see, it follows essentially the same steps as the other methods, and we need to adhere to Apple's specifications.
