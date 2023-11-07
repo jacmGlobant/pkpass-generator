@@ -8,11 +8,10 @@ The first step is to obtain the certificates to be able to sign the pass, the pa
 Apple sees any digital document on the apple-wallet
 
 1. [Process to create the certificates](#process-to-create-certificates)
-2. [Flow to create the pkpass (custom implementation)](#flow-to-create-pkpass)
-2. [Custom library with flow specification](#pkpass-generator)
-3. [Use of NodeJS community library (passkit-generator)](#flow-to-create-pkpass-with-passkit-generator)
+2. [Flow to create the pkpass (custom implementation)](#flow-to-create-pkpass-see-the-source-code-pkpassgeneratorjs)
+3. [Use of NodeJS community library (passkit-generator)](#flow-to-create-pkpass-with-passkit-generator-see-the-source-code-pkpassgenerator2js)
 4. [Python implementation (is old code but the foundation to create the pkpass)](#python-code)
-5. [Alternatives with Java language](#pkpass-implementationin-java)
+5. [Alternatives with Java language](#pkpass-implementation-in-java)
 
 
 ## Process to create certificates
