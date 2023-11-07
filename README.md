@@ -174,3 +174,10 @@ To debugg a pass with a simulator, we need to consider the next steps:
 [See more from the code courtesy of David Schuetz](https://gist.github.com/phoikoi/797be3a230959caa3039769bc7d4dba2)
 
 ## PkPass implementation in JAVA
+
+With java there are two implementation in the internet:
+
+1. [Create Rest API to download Apple wallet (.pkpass) file using Spring, Java](https://mumzee.medium.com/create-rest-api-to-download-apple-wallet-pkpass-file-using-spring-java-bd66e4eb8f3e)
+2. [(Java) Sign Manifest File to Generate a Passbook .pkpass file](https://example-code.com/java/passbook_signature_pkpass.asp)
+
+As you can see in basically the same steps that the other methods and we need follow the Apple specification
