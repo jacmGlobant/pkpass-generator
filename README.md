@@ -25,6 +25,7 @@ The way to create the certificates for sign the pass is the following:
 4. Create the credential for the pass identifier
 5. Download the certificate for the pass identifier 
 6. Download the apple authority distribution certificate (WWDR) type G4
+7. Last but not least, the machine that will perform the signature must have the certificate in the Apple keychain.
 
 Once the certificates is downloaded in some folder in the machine is neccesary export to pem (pkcs12)
 
