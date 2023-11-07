@@ -12,6 +12,7 @@ Apple sees any digital document on the apple-wallet
 3. [Use of NodeJS community library (passkit-generator)](#flow-to-create-pkpass-with-passkit-generator-see-the-source-code-pkpassgenerator2js)
 4. [Python implementation (is old code but the foundation to create the pkpass)](#python-code)
 5. [Alternatives with Java language](#pkpass-implementation-in-java)
+6. [How debug a pkpass](#how-debug-a-pass-with-simulator)
 
 
 ## Process to create certificates
@@ -139,7 +140,7 @@ To debugg a pass with a simulator, we need to consider the next steps:
    - Check for typos or formatting issues in the pkpass file's JSON.
    - For more information, you can visit https://developer.apple.com/documentation/walletpasses/building_a_pass
 
-## Python Code
+## Python Code (see in the folder python make_passbook.py code of David Schuetz)
 
 1. **Load supporting files, hash 'em and build up manifest** 
    The code reads files from a list, decodes them to text, computes and stores their SHA-1 hashes encoded in UTF-16, and builds a text-format manifest with the filenames and their hashes.
@@ -158,5 +159,7 @@ To debugg a pass with a simulator, we need to consider the next steps:
 
 6. **Write the zip file to pass.pkpass**
    The function writes the in-memory ZIP archive data to a file named 'pass.pkpass', effectively creating or updating it on the disk.
+
+[See more from the code courtesy of David Schuetz](#https://gist.github.com/phoikoi/797be3a230959caa3039769bc7d4dba2)
 
 ## PkPass implementation in JAVA
