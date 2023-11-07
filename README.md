@@ -46,6 +46,11 @@ $ cd output/pass
 $ openssl smime -verify -in signature -content manifest.json -inform der -noverify
 ```
 
+In the apple documentation there are all step to get the certicates:
+
+- [Apple Pass identifiers and certificates](https://developer.apple.com/help/account/configure-app-capabilities/create-wallet-identifiers-and-certificates)
+
+
 ## Flow to create pkpass (see the source code pkpassGenerator.js)
 
 The process to be followed to generate a pkpass is as follows:
@@ -67,6 +72,9 @@ The process to be followed to generate a pkpass is as follows:
 
 6. **Compress pass file:**  
    A function is created to compress a set of files into a .pkpass file using the zip command. 
+
+
+All steps to create the pkpass file is in: https://developer.apple.com/documentation/walletpasses/building_a_pass
 
 
 ## Flow to create pkpass with passkit-generator (see the source code pkpassGenerator2.js)
@@ -120,6 +128,9 @@ try {
 The pass structure should be define in the folder '/passes/sample' like is in the example
 and the other parameters: serialNuber, and the barcode definition
 
+This video explains the implementation of the passkit-generator library: https://www.youtube.com/watch?v=rJZdPoXHtzI
+and has a good explanation on how to generate certificates visually
+
 
 ## How debug a pass with simulator
 
@@ -160,6 +171,6 @@ To debugg a pass with a simulator, we need to consider the next steps:
 6. **Write the zip file to pass.pkpass**
    The function writes the in-memory ZIP archive data to a file named 'pass.pkpass', effectively creating or updating it on the disk.
 
-[See more from the code courtesy of David Schuetz](#https://gist.github.com/phoikoi/797be3a230959caa3039769bc7d4dba2)
+[See more from the code courtesy of David Schuetz](https://gist.github.com/phoikoi/797be3a230959caa3039769bc7d4dba2)
 
 ## PkPass implementation in JAVA
